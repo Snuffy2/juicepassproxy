@@ -28,11 +28,11 @@ jobs:
       
       # Login to your repository under
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: $
-          password: $
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       
       # Build and push container
       - name: Build and push
