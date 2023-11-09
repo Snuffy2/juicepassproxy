@@ -1,10 +1,7 @@
 name: Build and Publish Docker Image
 on:
-  #push:
-  #  branches: [ main ]
-  #pull_request:
-  #  branches: [ main ]
-
+  release:
+    types: [published, edited]
   workflow_dispatch:
 
 jobs:
@@ -24,6 +21,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and Push Docker Container
+        if: ${{ github.event_name != 'release' }}
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -32,4 +30,17 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/snuffy2/juicepassproxy:latest
+            ghcr.io/${{github.GITHUB_REPOSITORY}}:latest
+      - name: Build and Push Docker Container
+        if: ${{ github.event_name == 'release' }}
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            ghcr.io/${{github.GITHUB_REPOSITORY}}:latest,
+            ghcr.io/${{github.GITHUB_REPOSITORY}}:${{ github.ref_name }},
+            
