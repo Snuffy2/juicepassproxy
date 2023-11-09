@@ -8,6 +8,11 @@ jobs:
   build_and_publish_docker_image:
     runs-on: ubuntu-latest
     steps:
+      - name: Lowercase Repo
+        run: |
+          echo "REPO=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
+      - name: use REPO
+        run: echo "The value of REPO is: ${REPO}"    
       - name: Checkout 
         uses: actions/checkout@v4.1.1
       - name: Set up QEMU
@@ -30,7 +35,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${REPO}:latest
       - name: Build and Push Docker Container
         if: ${{ github.event_name == 'release' }}
         uses: docker/build-push-action@v5
@@ -41,6 +46,6 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/${{ github.repository }}:latest,
-            ghcr.io/${{ github.repository }}:${{ github.ref_name }},
+            ghcr.io/${REPO}:latest,
+            ghcr.io/${REPO}:${{ github.ref_name }},
             
