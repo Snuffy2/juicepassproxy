@@ -30,7 +30,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/${{ github.GITHUB_REPOSITORY }}:latest
+            ghcr.io/${{ github.repository }}:latest
       - name: Build and Push Docker Container
         if: ${{ github.event_name == 'release' }}
         uses: docker/build-push-action@v5
@@ -41,6 +41,6 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/${{ github.GITHUB_REPOSITORY }}:latest,
-            ghcr.io/${{ github.GITHUB_REPOSITORY }}:${{ github.ref_name }},
+            ghcr.io/${{ github.repository }}:latest,
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }},
             
