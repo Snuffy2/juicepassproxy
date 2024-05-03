@@ -33,6 +33,10 @@ jobs:
             echo "Is Default: ${{ steps.branch-names.outputs.is_default }}"
             echo "Is Tag: ${{ steps.branch-names.outputs.is_tag }}"
             echo "Current tag: ${{ steps.branch-names.outputs.tag }}"
+            echo "github.event.release.prerelease: ${{ github.event.release.prerelease }}"
+            echo "github.event.release.draft: ${{ github.event.release.draft }}"
+            echo "github.event.repository.default_branch: ${{ github.event.repository.default_branch }}"
+            echo "github.event.release.target_commitish: ${{ github.event.release.target_commitish }}"
             echo "::endgroup::"
       - name: Checkout
         uses: actions/checkout@v4.1.4
