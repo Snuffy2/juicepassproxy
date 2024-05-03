@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# comment
 import argparse
 import ipaddress
 import logging
