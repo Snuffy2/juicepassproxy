@@ -10,7 +10,7 @@ on:
 jobs:
   build_and_publish_docker_image:
     #if: github.repository_owner == 'snicker'
-    #if: github.event.release.target_commitish == 'async_beta'
+    if: github.event.release.target_commitish == 'async_beta' || github.ref_name == 'async_beta'
     runs-on: ubuntu-latest
     steps:
       - name: GitHub Context
