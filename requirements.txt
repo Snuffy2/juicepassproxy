@@ -1,4 +1,7 @@
-ha-mqtt-discoverable >= 0.10.0
+ha-mqtt-discoverable == 0.13.1
 paho-mqtt >= 1.6.1
 dnspython >= 2.0.0
 pyyaml
+telnetlib3
+aiorun
+asyncio-dgram >= 2.2.0
